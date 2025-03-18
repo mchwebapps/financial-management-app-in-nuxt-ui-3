@@ -2,6 +2,7 @@
 
 <template>
   <UApp>
+    <AppTopNavigation />
     <NuxtPage />
   </UApp>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center items-center h-screen">
-    <h2>
+  <div class="p-2.5">
+    <h2 class="text-center">
       <UButton loading variant="link" color="neutral" />
       Coming soon...
     </h2>
