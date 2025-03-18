@@ -3,6 +3,10 @@
 <template>
   <UApp>
     <AppTopNavigation />
-    <NuxtPage />
+
+    <UContainer>
+      <AppMainNavigation />
+      <NuxtPage />
+    </UContainer>
   </UApp>
 </template>
