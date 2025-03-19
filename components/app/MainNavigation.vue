@@ -2,20 +2,17 @@
 const items = ref([
   [
     {
-      label: 'Link 1',
+      label: 'Wydatki',
       // icon: 'i-lucide-wallet',
-      to: '#',
+      to: '/',
       active: true,
+      onSelect: () => (open.value = false),
     },
     {
-      label: 'Link 2',
-      // icon: 'i-lucide-database',
-      to: '#',
-    },
-    {
-      label: 'Link 3',
-      // icon: 'i-lucide-box',
-      to: '#',
+      label: 'Coming soon...',
+      icon: 'i-lucide-loader-circle',
+      to: '/coming-soon',
+      onSelect: () => (open.value = false),
     },
   ],
   [
@@ -23,6 +20,7 @@ const items = ref([
       label: 'GitHub',
       // icon: 'i-simple-icons-github',
       to: 'https://github.com/mchwebapps',
+      onSelect: () => (open.value = false),
       target: '_blank',
     },
   ],
