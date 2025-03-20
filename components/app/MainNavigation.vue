@@ -5,7 +5,6 @@ const items = ref([
       label: 'Wydatki',
       // icon: 'i-lucide-wallet',
       to: '/',
-      active: true,
       onSelect: () => (open.value = false),
     },
     {
