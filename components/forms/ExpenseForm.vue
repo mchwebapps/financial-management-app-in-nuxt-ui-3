@@ -1,16 +1,44 @@
 <script setup lang="ts">
 import { expenseFormFields } from '@/config/forms/expense-form-fields'
 
-const state = ref({})
+interface State {
+  item: string
+  category: string
+  cost: number
+  datetime: string
+  paymentType: string
+}
+
+const getCurrentDateTime = () => new Date().toISOString().slice(0, 16)
+const initialState: State = {
+  item: '',
+  category: '',
+  cost: 0,
+  datetime: getCurrentDateTime(),
+  paymentType: ''
+}
+const state = ref<State>({ ...initialState })
+
+const resetForm = () => {
+  state.value = { ...initialState }
+}
+
+const onSubmit = () => {
+  state.value = {
+    ...state.value,
+    datetime: new Date(state.value.datetime).toISOString()
+  }
+  console.log(state.value)
+  resetForm()
+}
 
 const loaded = ref(false)
-
 onMounted(() => (loaded.value = true))
 </script>
 
 <template>
   <div v-if="loaded">
-    <UForm :state="state" @submit.prevent="() => console.log('Submitted')">
+    <UForm :state="state" @submit="onSubmit">
       <div class="grid grid-cols-8 gap-y-4 gap-x-8">
         <UFormField
           v-for="field in expenseFormFields"
@@ -20,6 +48,7 @@ onMounted(() => (loaded.value = true))
         >
           <component
             :is="field.fieldProps.component"
+            v-model="state[field.formFieldProps.name as keyof State]"
             v-bind="field.fieldProps"
             class="w-full"
           />
