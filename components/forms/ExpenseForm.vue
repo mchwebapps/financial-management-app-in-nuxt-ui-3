@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { expenseFormFields } from '@/config/forms/expense-form-fields'
+import { expenseFormFields } from '@/config/form/expense-form-fields'
 
 interface State {
   item: string
