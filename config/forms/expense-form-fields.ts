@@ -7,7 +7,7 @@ export const expenseFormFields = ref<FormField[]>([
       label: 'Co?',
       hint: 'NAZWA',
       name: 'item',
-      class: 'col-span-8 md:col-span-4'
+      class: 'col-span-12 md:col-span-6'
     },
     fieldProps: {
       component: markRaw(UInput),
@@ -20,7 +20,7 @@ export const expenseFormFields = ref<FormField[]>([
       label: 'Gdzie?',
       hint: 'KATEGORIA / MIEJSCE',
       name: 'category',
-      class: 'col-span-8 md:col-span-4'
+      class: 'col-span-12 md:col-span-6'
     },
     fieldProps: {
       component: markRaw(UInput),
@@ -32,7 +32,7 @@ export const expenseFormFields = ref<FormField[]>([
       label: 'Kiedy?',
       hint: 'DATA I GODZINA',
       name: 'datetime',
-      class: 'col-span-8 md:col-span-2'
+      class: 'col-span-12 md:col-span-4 lg:col-span-3'
     },
     fieldProps: {
       component: markRaw(UInput),
@@ -44,7 +44,7 @@ export const expenseFormFields = ref<FormField[]>([
       label: 'Ile?',
       hint: 'KOSZT (PLN)',
       name: 'cost',
-      class: 'col-span-8 md:col-span-2',
+      class: 'col-span-12 md:col-span-3 lg:col-span-3',
     },
     fieldProps: {
       component: markRaw(UInputNumber),
@@ -65,7 +65,7 @@ export const expenseFormFields = ref<FormField[]>([
       label: 'Czym?',
       hint: 'METODA PŁATNOŚCI',
       name: 'paymentType',
-      class: 'col-span-8 md:col-span-3',
+      class: 'col-span-12 md:col-span-5',
     },
     fieldProps: {
       component: markRaw(UInput),

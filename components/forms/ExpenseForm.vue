@@ -39,7 +39,7 @@ onMounted(() => (loaded.value = true))
 <template>
   <div v-if="loaded">
     <UForm :state="state" @submit="onSubmit">
-      <div class="grid grid-cols-8 gap-y-4 gap-x-8">
+      <div class="grid grid-cols-12 gap-y-4 gap-x-8">
         <UFormField
           v-for="field in expenseFormFields"
           :key="field.formFieldProps.name"
@@ -54,21 +54,21 @@ onMounted(() => (loaded.value = true))
           />
         </UFormField>
 
-        <div class="col-span-8 md:col-span-1 flex items-end justify-end">
+        <div class="col-span-12 lg:col-span-1 flex items-end justify-end">
           <UButton type="submit" color="primary">Zapisz</UButton>
         </div>
       </div>
     </UForm>
   </div>
   <div v-else>
-    <div class="grid grid-cols-8 gap-y-4 gap-x-8">
+    <div class="grid grid-cols-12 gap-y-4 gap-x-8">
       <USkeleton
         v-for="el in expenseFormFields"
         :key="el.formFieldProps.name"
         :class="el.formFieldProps.class"
         class="h-13 md:h-14"
       />
-      <div class="col-span-8 md:col-span-1 flex items-end justify-end">
+      <div class="col-span-12 md:col-span-1 flex items-end justify-end">
         <USkeleton class="w-full h-12 md:h-14" />
       </div>
     </div>
