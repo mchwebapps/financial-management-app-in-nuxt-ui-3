@@ -42,7 +42,7 @@ export const expenseFormFields = ref<FormField[]>([
   {
     formFieldProps: {
       label: 'Ile?',
-      hint: 'KOSZT',
+      hint: 'KOSZT (PLN)',
       name: 'cost',
       class: 'col-span-8 md:col-span-2',
     },
@@ -50,7 +50,14 @@ export const expenseFormFields = ref<FormField[]>([
       component: markRaw(UInputNumber),
       defaultValue: 0,
       min: 0,
-      placeholder: 'Wprowadź wydaną kwotę',
+      step: 0.01,
+      formatOptions: {
+        style: 'decimal',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      },
+      locale: 'pl-PL',
+      placeholder: 'Wpisz wydaną kwotę',
     },
   },
   {
@@ -63,7 +70,7 @@ export const expenseFormFields = ref<FormField[]>([
     fieldProps: {
       component: markRaw(UInput),
       type: 'text',
-      placeholder: 'Wprowadź metodę płatności'
+      placeholder: 'Wpisz metodę płatności'
     }
   },
 ])
