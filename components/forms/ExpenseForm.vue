@@ -15,7 +15,7 @@ const initialState: State = {
   category: '',
   cost: 0,
   datetime: getCurrentDateTime(),
-  paymentType: ''
+  paymentType: '',
 }
 const state = ref<State>({ ...initialState })
 
@@ -26,7 +26,7 @@ const resetForm = () => {
 const onSubmit = () => {
   state.value = {
     ...state.value,
-    datetime: new Date(state.value.datetime).toISOString()
+    datetime: new Date(state.value.datetime).toISOString(),
   }
   console.log(state.value)
   resetForm()
@@ -61,15 +61,17 @@ onMounted(() => (loaded.value = true))
     </UForm>
   </div>
   <div v-else>
-    <div class="grid grid-cols-12 gap-y-4 gap-x-8">
-      <USkeleton
+    <div class="grid grid-cols-12 gap-y-5 gap-x-8 pt-2">
+      <div
         v-for="el in expenseFormFields"
         :key="el.formFieldProps.name"
         :class="el.formFieldProps.class"
-        class="h-13 md:h-14"
-      />
-      <div class="col-span-12 md:col-span-1 flex items-end justify-end">
-        <USkeleton class="w-full h-12 md:h-14" />
+      >
+        <USkeleton class="w-full h-4 mb-1" />
+        <USkeleton class="h-8" />
+      </div>
+      <div class="col-span-12 lg:col-span-1 flex items-end justify-end">
+        <USkeleton class="w-[58px] h-8" />
       </div>
     </div>
   </div>

@@ -7,11 +7,15 @@ onMounted(() => (loaded.value = true))
 <template>
   <div>
     <USeparator
+      v-if="loaded"
       color="neutral"
       type="dashed"
-      :label="loaded ? 'Wydatki' : '...'"
-      class="pt-4 pb-6"
+      label="Wydatki"
+      class="pt-2 pb-6"
     />
+    <div v-else class="w-full pt-2 pb-6">
+      <USkeleton class="w-full h-4" />
+    </div>
 
     <UContainer class="px-2.5 sm:px-4 lg:px-8">
       <div>
