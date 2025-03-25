@@ -2,7 +2,7 @@
 import { expenseFormFields } from '@/config/form/expense-form-fields'
 
 interface State {
-  item: string
+  item: string | number | undefined
   category: string
   cost: number
   datetime: string
@@ -34,6 +34,60 @@ const onSubmit = () => {
 
 const loaded = ref(false)
 onMounted(() => (loaded.value = true))
+
+const searchTerm = ref()
+const open = ref(false)
+const itemFieldRef = useTemplateRef('itemFieldRef')
+
+type ItemOption = {
+  id: number | null
+  label: string
+}
+
+const items = ref<ItemOption[]>([
+  { id: 1, label: 'Mleko' },
+  { id: 2, label: 'Jajka' },
+  { id: 3, label: 'Chleb' },
+])
+
+const onCreate = (label: string) => {
+  let newItem: ItemOption
+
+  const exists = items.value.some((item) => item.label === label)
+
+  if (!exists) {
+    const id = items.value.length + 1
+    newItem = { id, label }
+
+    items.value.push(newItem)
+    state.value.item = id
+    console.log(state.value.item)
+    open.value = false
+    itemFieldRef.value?.inputRef?.$el.focus()
+  }
+}
+
+const onDelete = () => {
+  if (!state.value.item) return
+  if (items.value.length === 0) {
+    state.value.item = undefined
+    open.value = false
+    return
+  }
+
+  const id = state.value.item
+  items.value = items.value.filter((i) => i.id !== id) || []
+  state.value.item = ''
+  searchTerm.value = ''
+  itemFieldRef.value?.inputRef?.$el.focus()
+  open.value = true
+}
+
+const onClear = () => {
+  state.value.item = ''
+  searchTerm.value = ''
+  open.value = false
+}
 </script>
 
 <template>
@@ -41,15 +95,117 @@ onMounted(() => (loaded.value = true))
     <UForm :state="state" @submit="onSubmit">
       <div class="grid grid-cols-12 gap-y-4 gap-x-8">
         <UFormField
-          v-for="field in expenseFormFields"
-          :key="field.formFieldProps.name"
-          v-bind="field.formFieldProps"
+          name="category"
+          label="Co?"
+          hint="Nazwa"
+          class="col-span-12 md:col-span-6"
           :ui="{ hint: 'text-[0.6rem]' }"
         >
-          <component
-            :is="field.fieldProps.component"
-            v-model="state[field.formFieldProps.name as keyof State]"
-            v-bind="field.fieldProps"
+          <UInputMenu
+            ref="itemFieldRef"
+            v-model="state.item"
+            v-model:search-term="searchTerm"
+            v-model:open="open"
+            :reset-search-term-on-blur="false"
+            :items="items || []"
+            label-key="label"
+            value-key="id"
+            icon="i-lucide-search"
+            placeholder="Wpisz nazwę zakupu"
+            class="w-full"
+            autofocus
+            create-item
+            @create="onCreate"
+          >
+            <template #leading>
+              <UIcon
+                v-if="state.item === ''"
+                name="i-lucide-search"
+                class="w-4 h-4 text-neutral-500"
+              />
+              <UIcon
+                v-else
+                name="i-lucide-trash-2"
+                class="w-5 h-5 text-neutral-500 hover:text-red-500 cursor-pointer"
+                @click="onDelete"
+              />
+            </template>
+            <template #trailing>
+              <UIcon
+                v-if="searchTerm !== '' || state.item"
+                name="i-lucide-x"
+                class="w-4 h-4 text-neutral-500 hover:text-sky-500 cursor-pointer me-2"
+                @click="onClear"
+              />
+              <UIcon
+                name="i-lucide-chevron-down"
+                class="w-4 h-4 text-neutral-500 group-data-[state=open]:rotate-180 transition-transform duration-200"
+              />
+            </template>
+          </UInputMenu>
+        </UFormField>
+
+        <UFormField
+          name="category"
+          label="Gdzie?"
+          hint="KATEGORIA / MIEJSCE"
+          class="col-span-12 md:col-span-6"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInput
+            v-model="state.category"
+            placeholder="Wpisz kategorię zakupu"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          name="datetime"
+          label="Kiedy?"
+          hint="DATA I GODZINA"
+          class="col-span-12 md:col-span-4 lg:col-span-3"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInput
+            v-model="state.datetime"
+            type="datetime-local"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          name="cost"
+          label="Ile?"
+          hint="KOSZT (PLN)"
+          class="col-span-12 md:col-span-3 lg:col-span-3"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInputNumber
+            v-model="state.cost"
+            :default-value="0"
+            :min="0"
+            :step="0.01"
+            :format-options="{
+              style: 'decimal',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }"
+            :locale="'pl-PL'"
+            placeholder="Wpisz wydaną kwotę"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          name="paymentType"
+          label="Czym?"
+          hint="METODA PŁATNOŚCI"
+          class="col-span-12 md:col-span-5"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInput
+            v-model="state.paymentType"
+            placeholder="Wpisz metodę płatności"
             class="w-full"
           />
         </UFormField>
