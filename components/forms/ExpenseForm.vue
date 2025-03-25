@@ -144,12 +144,68 @@ const onClear = () => {
             </template>
           </UInputMenu>
         </UFormField>
+
+        <UFormField
+          name="category"
+          label="Gdzie?"
+          hint="KATEGORIA / MIEJSCE"
+          class="col-span-12 md:col-span-6"
           :ui="{ hint: 'text-[0.6rem]' }"
         >
-          <component
-            :is="field.fieldProps.component"
-            v-model="state[field.formFieldProps.name as keyof State]"
-            v-bind="field.fieldProps"
+          <UInput
+            v-model="state.category"
+            placeholder="Wpisz kategorię zakupu"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          name="datetime"
+          label="Kiedy?"
+          hint="DATA I GODZINA"
+          class="col-span-12 md:col-span-4 lg:col-span-3"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInput
+            v-model="state.datetime"
+            type="datetime-local"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          name="cost"
+          label="Ile?"
+          hint="KOSZT (PLN)"
+          class="col-span-12 md:col-span-3 lg:col-span-3"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInputNumber
+            v-model="state.cost"
+            :default-value="0"
+            :min="0"
+            :step="0.01"
+            :format-options="{
+              style: 'decimal',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }"
+            :locale="'pl-PL'"
+            placeholder="Wpisz wydaną kwotę"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          name="paymentType"
+          label="Czym?"
+          hint="METODA PŁATNOŚCI"
+          class="col-span-12 md:col-span-5"
+          :ui="{ hint: 'text-[0.6rem]' }"
+        >
+          <UInput
+            v-model="state.paymentType"
+            placeholder="Wpisz metodę płatności"
             class="w-full"
           />
         </UFormField>
