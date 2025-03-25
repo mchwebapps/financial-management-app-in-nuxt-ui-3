@@ -1,15 +1,9 @@
-import type { BaseFormField } from './base-form-field'
-import type { UInputField } from './input-field'
+import type { BaseField } from './base-field'
+import type { ItemField } from './item-field'
 import type { UInputNumberField } from './input-number-field'
-import type { UInputMenuField } from './input-menu-field'
 
-export type FieldProps = UInputField | UInputMenuField | UInputNumberField
-
-export interface FormField extends BaseFormField {
-  fieldProps: FieldProps
-}
-
-export * from './base-form-field'
-export * from './input-field'
+export * from './base-field'
+export * from './item-field'
 export * from './input-number-field'
-export * from './input-menu-field'
+
+export type FormField = BaseField | ItemField | UInputNumberField
