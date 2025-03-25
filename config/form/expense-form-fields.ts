@@ -1,53 +1,54 @@
-import type { FormField } from '@/types/form-field'
-import { FieldComponentMap } from './field-component-map'
-
-export const expenseFormFields: FormField[] = [
+export const expenseFormFields = [
   {
     formFieldProps: {
+      name: 'item',
       label: 'Co?',
       hint: 'NAZWA',
-      name: 'item',
       class: 'col-span-12 md:col-span-6'
     },
     fieldProps: {
-      component: FieldComponentMap.UInput,
       placeholder: 'Wpisz nazwę dla zakupu',
-      autofocus: true
-    },
+      autofocus: true,
+      trailing: true,
+      items: [
+        { id: 1, label: 'Mleko' },
+        { id: 2, label: 'Jajka' },
+        { id: 3, label: 'Chleb' },
+        { id: 4, label: 'Pomidor' },
+        { id: 5, label: 'Ser' },
+      ]
+    }
   },
   {
     formFieldProps: {
+      name: 'category',
       label: 'Gdzie?',
       hint: 'KATEGORIA / MIEJSCE',
-      name: 'category',
       class: 'col-span-12 md:col-span-6'
     },
     fieldProps: {
-      component: FieldComponentMap.UInput,
       placeholder: 'Wpisz kategorię zakupu'
     },
   },
   {
     formFieldProps: {
+      name: 'datetime',
       label: 'Kiedy?',
       hint: 'DATA I GODZINA',
-      name: 'datetime',
       class: 'col-span-12 md:col-span-4 lg:col-span-3'
     },
     fieldProps: {
-      component: FieldComponentMap.UInput,
       type: 'datetime-local'
     }
   },
   {
     formFieldProps: {
+      name: 'cost',
       label: 'Ile?',
       hint: 'KOSZT (PLN)',
-      name: 'cost',
       class: 'col-span-12 md:col-span-3 lg:col-span-3',
     },
     fieldProps: {
-      component: FieldComponentMap.UInputNumber,
       defaultValue: 0,
       min: 0,
       step: 0.01,
@@ -62,13 +63,12 @@ export const expenseFormFields: FormField[] = [
   },
   {
     formFieldProps: {
+      name: 'paymentType',
       label: 'Czym?',
       hint: 'METODA PŁATNOŚCI',
-      name: 'paymentType',
       class: 'col-span-12 md:col-span-5',
     },
     fieldProps: {
-      component: FieldComponentMap.UInput,
       type: 'text',
       placeholder: 'Wpisz metodę płatności'
     }
