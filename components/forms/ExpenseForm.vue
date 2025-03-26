@@ -95,7 +95,7 @@ const onClear = () => {
     <UForm :state="state" @submit="onSubmit">
       <div class="grid grid-cols-12 gap-y-4 gap-x-8">
         <UFormField
-          name="category"
+          name="item"
           label="Co?"
           hint="Nazwa"
           class="col-span-12 md:col-span-6"
@@ -141,6 +141,12 @@ const onClear = () => {
                 name="i-lucide-chevron-down"
                 class="w-4 h-4 text-neutral-500 group-data-[state=open]:rotate-180 transition-transform duration-200"
               />
+            </template>
+            <template #create-item-label>
+              <span class="block">Utwórz nowy element listy:</span> <span class="text-sky-500 font-medium block">{{ searchTerm }}</span>
+            </template>
+            <template #empty>
+              Brak elementów
             </template>
           </UInputMenu>
         </UFormField>
